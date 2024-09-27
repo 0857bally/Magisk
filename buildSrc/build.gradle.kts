@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `kotlin-dsl`
 }
+
 repositories {
     google()
     mavenCentral()
@@ -17,16 +18,17 @@ gradlePlugin {
     }
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-        jvmTarget = "11"
+        languageVersion = "2.0"
     }
 }
 
 dependencies {
-    implementation(kotlin("gradle-plugin", "1.6.10"))
-    implementation("com.android.tools.build:gradle:7.1.0")
-    implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0-alpha01")
-    implementation("io.michaelrocks:paranoid-gradle-plugin:0.3.7")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r")
+    implementation(kotlin("gradle-plugin", libs.versions.kotlin.get()))
+    implementation(libs.android.gradle.plugin)
+    implementation(libs.ksp.plugin)
+    implementation(libs.navigation.safe.args.plugin)
+    implementation(libs.lsparanoid.plugin)
+    implementation(libs.jgit)
 }
